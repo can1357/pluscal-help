@@ -1,0 +1,261 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  version?: string;
+}
+
+const {
+  title,
+  description = 'PlusCal algorithm language reference',
+  version = '1.8',
+} = Astro.props;
+const siteUrl = 'https://pluscal.help';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="PlusCal Cheat Sheet" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    />
+    <script
+      is:inline
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+      crossorigin="anonymous"></script>
+    <script
+      is:inline
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous"></script>
+
+    <style>
+      .katex {
+        color: #c9d1d9 !important;
+        font-size: 1.05em;
+      }
+      .katex .mord {
+        color: #c9d1d9 !important;
+      }
+      .katex .mop {
+        color: #79c0ff !important;
+      }
+      .katex .mrel {
+        color: #ff7b72 !important;
+      }
+      .katex .mbin {
+        color: #ff7b72 !important;
+      }
+      .katex .mpunct {
+        color: #8b949e !important;
+      }
+
+      /* Better Unicode symbol support */
+      html {
+        font-size: 9px !important;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif,
+          'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Sans Symbols',
+          'Noto Sans Math' !important;
+        font-size: 1.6rem !important;
+        line-height: 1.5 !important;
+        background-color: #14191f !important;
+        margin: 0;
+        max-width: 800px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      code,
+      pre {
+        font-family:
+          'Fira Code', 'SF Mono', Consolas, 'Liberation Mono', Menlo, 'Noto Sans Mono', monospace,
+          'Noto Sans Symbols', 'Noto Sans Math' !important;
+      }
+
+      /* Scale up on larger screens like cheats.rs */
+      @media screen and (min-width: 1050px) {
+        .book-content {
+          transition: 0s;
+          transform-origin: top left;
+          transform: scale(1.05);
+        }
+      }
+
+      main {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 20px 40px !important;
+      }
+
+      table {
+        width: 100% !important;
+        table-layout: auto !important;
+      }
+
+      table td,
+      table th {
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+      }
+
+      code {
+        font-size: 12px !important;
+      }
+
+      h1 {
+        font-size: 28px !important;
+      }
+
+      h2 {
+        font-size: 20px !important;
+      }
+
+      h3 {
+        font-size: 16px !important;
+      }
+    </style>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+
+        if (typeof renderMathInElement !== 'undefined') {
+          renderMathInElement(document.body, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\[', right: '\\]', display: true },
+              { left: '\\(', right: '\\)', display: false },
+            ],
+            throwOnError: false,
+            strict: false,
+          });
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        const backToTop = document.getElementById('back-to-top');
+        if (backToTop) {
+          if (window.scrollY > 300) {
+            backToTop.classList.remove('hidden');
+          } else {
+            backToTop.classList.add('hidden');
+          }
+        }
+      });
+    </script>
+  </head>
+
+  <body class="min-h-screen">
+    <header class="bg-dark-bg-secondary border-b border-dark-border">
+      <div class="max-w-[800px] mx-auto" style="padding: 0 15px;">
+        <div class="flex items-center justify-between py-3">
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-dark-text m-0" style="font-size: 4rem;">
+              {title}
+            </h1>
+            {
+              version && (
+                <span
+                  class="px-1.5 py-0.5 font-mono bg-dark-accent text-dark-bg rounded font-semibold"
+                  style="font-size: 0.9rem;"
+                >
+                  v{version}
+                </span>
+              )
+            }
+          </div>
+          <nav class="flex items-center gap-4" style="font-size: 0.9rem;">
+            <a
+              href="https://github.com/can1357/pluscal-help"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-dark-text-muted hover:text-dark-accent no-underline transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://lamport.azurewebsites.net/tla/tla.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-dark-text-muted hover:text-dark-accent no-underline transition-colors"
+            >
+              TLA+ Home
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <slot name="nav" />
+
+    <main class="book-content max-w-[800px] mx-auto pb-10" style="padding: 0 15px 40px;">
+      <article class="w-full">
+        <slot />
+      </article>
+    </main>
+
+    <button
+      id="back-to-top"
+      class="hidden fixed bottom-8 right-8 bg-dark-accent hover:bg-dark-accent-secondary text-dark-bg rounded-lg p-3 shadow-lg transition-all duration-200 z-40 font-semibold text-sm"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      aria-label="Back to top"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+  </body>
+</html>

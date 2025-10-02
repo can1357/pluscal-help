@@ -1,0 +1,91 @@
+---
+interface Props {
+  title: string;
+  open?: boolean;
+  type?: 'default' | 'warning' | 'info' | 'tip';
+}
+
+const { title, open = false, type = 'default' } = Astro.props;
+
+const typeClasses = {
+  default: 'border-dark-border',
+  warning: 'border-yellow-600/50 bg-yellow-900/10',
+  info: 'border-blue-600/50 bg-blue-900/10',
+  tip: 'border-green-600/50 bg-green-900/10',
+};
+
+const iconMap = {
+  default: '',
+  warning: '🛑',
+  info: 'ℹ️',
+  tip: '🔥',
+};
+---
+
+<details class:list={['expandable-section', typeClasses[type]]} open={open}>
+  <summary class="flex items-center gap-2">
+    <svg
+      class="arrow w-4 h-4 transition-transform duration-200"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+    </svg>
+    {iconMap[type] && <span>{iconMap[type]}</span>}
+    <span>{title}</span>
+  </summary>
+  <div class="content">
+    <slot />
+  </div>
+</details>
+
+<script>
+  document.querySelectorAll('details').forEach((detail) => {
+    detail.addEventListener('toggle', () => {
+      const arrow = detail.querySelector('.arrow') as HTMLElement | null;
+      if (arrow) {
+        if (detail.open) {
+          arrow.style.transform = 'rotate(90deg)';
+        } else {
+          arrow.style.transform = 'rotate(0deg)';
+        }
+      }
+    });
+
+    const arrow = detail.querySelector('.arrow') as HTMLElement | null;
+    if (arrow && detail.open) {
+      arrow.style.transform = 'rotate(90deg)';
+    }
+  });
+</script>
+
+<style>
+  .expandable-section {
+    transition: all 0.2s ease;
+  }
+
+  .expandable-section summary {
+    list-style: none;
+    user-select: none;
+  }
+
+  .expandable-section summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .content {
+    animation: slideDown 0.2s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

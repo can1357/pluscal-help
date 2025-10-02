@@ -1,0 +1,47 @@
+{
+  "name": "pluscal-help",
+  "type": "module",
+  "version": "1.8.0",
+  "description": "A beautiful, dark-mode cheat sheet for PlusCal (C-Syntax v1.8) - the algorithm language for TLA+",
+  "author": "can1357",
+  "license": "MIT",
+  "homepage": "https://pluscal.help",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/can1357/pluscal-help.git"
+  },
+  "bugs": {
+    "url": "https://github.com/can1357/pluscal-help/issues"
+  },
+  "keywords": [
+    "pluscal",
+    "tla",
+    "tla+",
+    "algorithm",
+    "formal-methods",
+    "cheat-sheet",
+    "documentation",
+    "astro"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^4.16.18",
+    "shiki": "^1.22.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/node": "^22.10.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1"
+  }
+}

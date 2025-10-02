@@ -1,0 +1,264 @@
+---
+import { getCollection } from 'astro:content';
+import CheatSheet from '../layouts/CheatSheet.astro';
+import HorizontalNav from '../components/HorizontalNav.astro';
+
+const docs = await getCollection('docs');
+const entry = docs[0];
+
+if (!entry) {
+  throw new Error('Content not found');
+}
+
+const { Content, headings } = await entry.render();
+const { title, description, version } = entry.data;
+---
+
+<CheatSheet title={title} description={description} version={version}>
+  <HorizontalNav slot="nav" headings={headings} />
+
+  <div class="prose prose-dark max-w-none">
+    <Content />
+  </div>
+</CheatSheet>
+
+<style is:global>
+  /* Table styling - maximum density */
+  .prose table {
+    @apply w-full border-collapse;
+    margin: 0.4em 0 2.4em;
+    border: 1px solid #30363d;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .prose thead {
+    background-color: #1a1f26;
+    border-bottom: 1px solid #30363d;
+  }
+
+  .prose th {
+    font-size: 1.3rem;
+    padding: 3px 5px 3px 20px;
+    text-align: left;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+
+  .prose td {
+    font-size: 1.3rem;
+    padding: 3px 5px 3px 20px;
+    border-bottom: 1px solid #30363d;
+    color: #e6edf3;
+  }
+
+  .prose tbody tr:nth-child(even) {
+    background-color: #14191f;
+  }
+
+  .prose tbody tr:nth-child(odd) {
+    background-color: #1a1f26;
+  }
+
+  .prose tbody tr:hover {
+    background-color: #202832;
+  }
+
+  .prose tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .prose table code {
+    background-color: #0f1419;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    font-family: 'Fira Code', monospace;
+    color: #ffa657;
+    word-break: break-all;
+    white-space: pre-wrap;
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    border: 1px solid #30363d;
+  }
+
+  /* Code blocks */
+  .prose pre {
+    background-color: #0f1419;
+    border: 1px solid #30363d;
+    border-radius: 3px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 0.5em 0;
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .prose :not(pre) > code {
+    background-color: #0f1419;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    font-family: 'Fira Code', monospace;
+    color: #ffa657;
+    border: 1px solid #30363d;
+  }
+
+  /* Links */
+  .prose a {
+    color: #58a6ff;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .prose a:hover {
+    color: #79c0ff;
+    text-decoration: underline;
+  }
+
+  /* Headings */
+  .prose h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #e6edf3;
+    letter-spacing: -0.5px;
+  }
+
+  .prose h1:first-child {
+    margin-top: 0;
+  }
+
+  .prose h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #30363d;
+    color: #e6edf3;
+    scroll-margin-top: 120px;
+  }
+
+  .prose h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    color: #e6edf3;
+  }
+
+  .prose h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: #8b949e;
+  }
+
+  /* Blockquotes */
+  .prose blockquote {
+    border-left: 3px solid #ffa657;
+    background-color: #1a1f26;
+    padding: 10px;
+    border-radius: 3px;
+    font-style: italic;
+    color: #8b949e;
+    margin: 0 0 0.85em;
+    font-size: 1.4rem;
+  }
+
+  .prose blockquote p {
+    margin: 0;
+  }
+
+  /* Horizontal rules */
+  .prose hr {
+    border: none;
+    border-top: 1px solid #30363d;
+    margin: 0.4em 0 2.4em;
+  }
+
+  /* Lists */
+  .prose ul,
+  .prose ol {
+    margin: 1.2rem 0;
+    padding-left: 2.4rem;
+    color: #e6edf3;
+    font-size: 1.4rem;
+  }
+
+  .prose li {
+    margin: 0.4rem 0;
+    line-height: 1.6;
+    font-size: 1.4rem;
+  }
+
+  /* Paragraphs */
+  .prose p {
+    color: #e6edf3;
+    margin-top: 0;
+    margin-bottom: 0.85em;
+    line-height: 1.6;
+    font-size: 1.4rem;
+  }
+
+  /* Strong/Bold */
+  .prose strong {
+    color: #ffa657;
+    font-weight: 600;
+    font-size: inherit;
+  }
+
+  /* Emphasis */
+  .prose em {
+    color: #8b949e;
+    font-style: italic;
+    font-size: inherit;
+  }
+
+  /* General text sizing */
+  .prose {
+    font-size: 1.4rem;
+  }
+
+  /* Add anchor links to headings */
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    position: relative;
+  }
+
+  .prose h2:hover .heading-anchor,
+  .prose h3:hover .heading-anchor,
+  .prose h4:hover .heading-anchor {
+    opacity: 1;
+  }
+
+  .heading-anchor {
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const headings = document.querySelectorAll('h2[id], h3[id], h4[id]');
+
+    headings.forEach((heading) => {
+      const anchor = document.createElement('a');
+      anchor.href = `#${heading.id}`;
+      anchor.className = 'heading-anchor';
+      anchor.innerHTML = '#';
+      anchor.setAttribute('aria-label', `Link to ${heading.textContent}`);
+      heading.prepend(anchor);
+    });
+  });
+</script>

@@ -1,0 +1,399 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-dark-bg text-dark-text font-sans antialiased;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* Code font ligatures */
+  code,
+  pre {
+    font-variant-ligatures: normal;
+    font-feature-settings:
+      'liga' 1,
+      'calt' 1;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-bg-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-border rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-dark-border-light;
+  }
+}
+
+@layer components {
+  /* Table styling */
+  .content-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    table-layout: fixed;
+  }
+
+  .content-table thead {
+    background-color: #161b22;
+  }
+
+  .content-table th {
+    padding: 6px 10px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid #30363d;
+    font-size: 13px;
+    color: #c9d1d9;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .content-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #21262d;
+    font-size: 13px;
+    height: 32px;
+    color: #c9d1d9;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .content-table th:first-child,
+  .content-table td:first-child {
+    width: 20%;
+    min-width: 120px;
+  }
+
+  .content-table th:nth-child(2),
+  .content-table td:nth-child(2) {
+    width: 40%;
+  }
+
+  .content-table th:last-child,
+  .content-table td:last-child {
+    width: 40%;
+  }
+
+  .content-table tbody tr:nth-child(even) {
+    background-color: #0d1117;
+  }
+
+  .content-table tbody tr:nth-child(odd) {
+    background-color: #161b22;
+  }
+
+  .content-table tbody tr:hover {
+    background-color: #161b22;
+  }
+
+  .content-table code {
+    background-color: #161b22;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'Fira Code', monospace;
+    color: #79c0ff;
+    word-break: break-all;
+    white-space: pre-wrap;
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  /* Math symbols in code */
+  code {
+    font-variant-ligatures: none;
+  }
+
+  /* Ensure Unicode math symbols display properly */
+  .content-table td:first-child code,
+  .content-table th:first-child code {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  /* Inline code */
+  :not(pre) > code {
+    @apply bg-dark-bg-code px-1 py-0.5 rounded text-sm font-mono text-syntax-variable;
+  }
+
+  /* Links */
+  a {
+    @apply text-dark-link transition-all duration-200;
+  }
+
+  a:hover {
+    @apply text-dark-link-hover underline;
+  }
+
+  /* Headers */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold mt-6 mb-3;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl border-b border-dark-border pb-1.5;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h4 {
+    @apply text-lg;
+  }
+
+  /* Code blocks */
+  pre {
+    @apply bg-dark-bg-code rounded p-3 overflow-x-auto my-3 border border-dark-border text-sm;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left: 4px solid #58a6ff;
+    padding-left: 12px;
+    font-style: italic;
+    color: #8b949e;
+    margin: 12px 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  /* Horizontal rule */
+  hr {
+    @apply border-dark-border my-5;
+  }
+
+  /* Lists */
+  ul,
+  ol {
+    @apply my-3 pl-5;
+  }
+
+  li {
+    @apply my-1.5;
+  }
+
+  /* Collapsible sections */
+  details {
+    @apply my-3 bg-dark-bg-secondary rounded border border-dark-border overflow-hidden;
+  }
+
+  summary {
+    @apply px-3 py-2 cursor-pointer font-semibold hover:bg-dark-bg-tertiary transition-colors duration-150 text-sm;
+  }
+
+  details[open] summary {
+    @apply border-b border-dark-border;
+  }
+
+  details > *:not(summary) {
+    @apply px-3 py-2 text-sm;
+  }
+
+  /* Warning/Info boxes */
+  .warning {
+    background: rgba(255, 123, 114, 0.1);
+    border: 1px solid rgba(255, 123, 114, 0.3);
+    border-radius: 4px;
+    padding: 12px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+
+  .info {
+    background: rgba(88, 166, 255, 0.1);
+    border: 1px solid rgba(88, 166, 255, 0.3);
+    border-radius: 4px;
+    padding: 12px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+
+  .tip {
+    background: rgba(121, 192, 255, 0.1);
+    border: 1px solid rgba(121, 192, 255, 0.3);
+    border-radius: 4px;
+    padding: 12px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+
+  /* Icon indicators */
+  .icon-warning::before {
+    content: '🛑 ';
+  }
+
+  .icon-tip::before {
+    content: '🔥 ';
+  }
+
+  .icon-unstable::before {
+    content: '🚧 ';
+  }
+}
+
+@layer utilities {
+  .font-ligatures {
+    font-variant-ligatures: normal;
+    font-feature-settings:
+      'liga' 1,
+      'calt' 1;
+  }
+}
+
+/* Shiki syntax highlighting overrides */
+.astro-code {
+  background-color: #161b22 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  padding: 12px !important;
+}
+
+.astro-code .line {
+  display: inline-block;
+  width: 100%;
+}
+
+/* Token color overrides - exact GitHub dark colors */
+.astro-code .token.keyword {
+  color: #ff7b72 !important;
+}
+
+.astro-code .token.string,
+.astro-code .token.string-expression {
+  color: #a5d6ff !important;
+}
+
+.astro-code .token.function {
+  color: #d2a8ff !important;
+}
+
+.astro-code .token.variable {
+  color: #79c0ff !important;
+}
+
+.astro-code .token.comment {
+  color: #8b949e !important;
+  font-style: italic;
+}
+
+.astro-code .token.number {
+  color: #79c0ff !important;
+}
+
+.astro-code .token.operator {
+  color: #ff7b72 !important;
+}
+
+.astro-code .token.punctuation {
+  color: #c9d1d9 !important;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  color: #c9d1d9;
+  background: #161b22;
+  font-family: 'Fira Code', 'SF Mono', Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 4;
+  hyphens: none;
+}
+
+pre[class*='language-'] {
+  padding: 12px;
+  margin: 12px 0;
+  overflow: auto;
+  border-radius: 4px;
+  background: #161b22;
+}
+
+:not(pre) > code[class*='language-'] {
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: #161b22;
+}
+
+.token.comment {
+  color: #8b949e;
+  font-style: italic;
+}
+
+.token.keyword {
+  color: #ff7b72;
+}
+
+.token.operator {
+  color: #ff7b72;
+}
+
+.token.string {
+  color: #a5d6ff;
+}
+
+.token.function {
+  color: #d2a8ff;
+}
+
+.token.number {
+  color: #79c0ff;
+}
+
+.token.punctuation {
+  color: #c9d1d9;
+}
+
+/* Manual syntax highlighting for code blocks without language */
+pre code,
+.astro-code code {
+  color: #c9d1d9;
+}
+
+/* Highlight common PlusCal keywords in all code blocks */
+pre code::before,
+.astro-code code::before {
+  content: '';
+}
+
+/* Add syntax coloring via content replacement - not ideal but works */
+pre:has(code:not([class*='language-'])) {
+  background: #161b22;
+  color: #c9d1d9;
+}

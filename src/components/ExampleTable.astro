@@ -1,0 +1,51 @@
+---
+interface TableRow {
+  example: string;
+  explanation: string;
+}
+
+interface Props {
+  headers?: [string, string];
+  rows: TableRow[];
+  caption?: string;
+}
+
+const { headers = ['Example', 'Explanation'], rows, caption } = Astro.props;
+---
+
+<div class="table-wrapper my-6 overflow-x-auto">
+  <table class="content-table">
+    {caption && <caption class="text-left text-dark-text-muted mb-2 px-4">{caption}</caption>}
+    <thead>
+      <tr>
+        <th class="w-2/5">{headers[0]}</th>
+        <th>{headers[1]}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            <td>
+              <code class="whitespace-nowrap">{row.example}</code>
+            </td>
+            <td class="text-dark-text-muted">{row.explanation}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-wrapper {
+    border-radius: 0.5rem;
+    border: 1px solid #333;
+    overflow: hidden;
+  }
+
+  caption {
+    caption-side: top;
+    padding: 0.5rem 1rem;
+  }
+</style>

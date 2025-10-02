@@ -1,0 +1,43 @@
+---
+interface Props {
+  headings: Array<{ depth: number; slug: string; text: string }>;
+}
+
+const { headings } = Astro.props;
+
+const navItems = headings.filter((h) => h.depth === 2);
+---
+
+<nav class="border-b border-dark-border bg-dark-bg-tertiary shadow-sm">
+  <div class="max-w-[800px] mx-auto" style="padding: 0 15px;">
+    <div class="flex flex-wrap gap-x-2 gap-y-1 py-2">
+      {
+        navItems.map((heading) => (
+          <a
+            href={`#${heading.slug}`}
+            class="nav-item px-2 py-0.5 text-xs whitespace-nowrap hover:text-dark-link text-dark-text-muted transition-colors"
+          >
+            {heading.text}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-item {
+    font-size: 1.3rem;
+  }
+
+  .nav-item::before {
+    content: '•';
+    margin-right: 0.3rem;
+    color: #8b949e;
+  }
+
+  .nav-item:first-child::before {
+    content: '';
+    margin-right: 0;
+  }
+</style>

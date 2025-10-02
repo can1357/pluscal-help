@@ -1,0 +1,78 @@
+---
+interface Props {
+  code: string;
+  lang?: string;
+  title?: string;
+  showLineNumbers?: boolean;
+}
+
+const { code, lang = 'plaintext', title, showLineNumbers = false } = Astro.props;
+const id = `code-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div class="code-block-wrapper my-4">
+  {
+    title && (
+      <div class="bg-dark-bg-tertiary px-4 py-2 rounded-t-lg border border-b-0 border-dark-border flex items-center justify-between">
+        <span class="text-sm font-mono text-dark-text-muted">{title}</span>
+        <span class="text-xs px-2 py-1 bg-dark-bg-code rounded text-dark-accent">{lang}</span>
+      </div>
+    )
+  }
+  <div class="relative group">
+    <pre
+      id={id}
+      class:list={[
+        'bg-dark-bg-code rounded-lg p-4 overflow-x-auto border border-dark-border',
+        { 'rounded-t-none': title },
+        { 'line-numbers': showLineNumbers },
+      ]}><code class="font-mono text-sm">{code}</code></pre>
+
+    <button
+      class="copy-button absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-dark-bg-tertiary hover:bg-dark-accent text-dark-text hover:text-dark-bg px-3 py-1.5 rounded text-sm font-mono"
+      data-code-id={id}
+    >
+      Copy
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.copy-button').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const codeId = button.getAttribute('data-code-id');
+      const codeBlock = document.getElementById(codeId!);
+      const code = codeBlock?.textContent || '';
+
+      try {
+        await navigator.clipboard.writeText(code);
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  });
+</script>
+
+<style>
+  .line-numbers {
+    counter-reset: line;
+  }
+
+  .line-numbers code {
+    counter-increment: line;
+  }
+
+  .line-numbers code::before {
+    content: counter(line);
+    display: inline-block;
+    width: 2rem;
+    margin-right: 1rem;
+    color: #8b949e;
+    text-align: right;
+  }
+</style>

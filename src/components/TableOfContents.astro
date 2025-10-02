@@ -1,0 +1,68 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+const tocHeadings = headings.filter((h) => h.depth === 2);
+---
+
+<nav
+  class="horizontal-toc sticky z-40 bg-dark-bg-secondary border-b border-dark-border-light"
+  style="top: 50px; padding: 12px 0;"
+>
+  <div class="max-w-[1200px] mx-auto px-10">
+    <div class="flex flex-wrap items-center gap-x-1 text-sm">
+      <span class="text-dark-text-muted mr-2">Contents:</span>
+      {
+        tocHeadings.map((heading, index) => (
+          <>
+            <a
+              href={`#${heading.slug}`}
+              class="toc-link text-dark-text-muted hover:text-dark-link hover:underline transition-colors duration-150 whitespace-nowrap"
+              data-toc-link
+            >
+              {heading.text}
+            </a>
+            {index < tocHeadings.length - 1 && <span class="text-dark-border-light px-1">•</span>}
+          </>
+        ))
+      }
+    </div>
+  </div>
+</nav>
+
+<script>
+  const observerOptions = {
+    rootMargin: '-20% 0px -75%',
+    threshold: 0,
+  };
+
+  const headingObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.getAttribute('id');
+      const tocLink = document.querySelector(`.horizontal-toc a[href="#${id}"]`);
+
+      if (entry.isIntersecting && tocLink) {
+        document.querySelectorAll('.horizontal-toc [data-toc-link]').forEach((link) => {
+          link.classList.remove('text-dark-link', 'font-semibold');
+          link.classList.add('text-dark-text-muted');
+        });
+
+        tocLink.classList.remove('text-dark-text-muted');
+        tocLink.classList.add('text-dark-link', 'font-semibold');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('h2[id]').forEach((heading) => {
+    headingObserver.observe(heading);
+  });
+</script>
