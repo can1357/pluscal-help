@@ -625,12 +625,12 @@ PlusCal expressions are TLA+ expressions. Here are the most common:
 
 ### Functions (Arrays)
 
-| Syntax     | Meaning                          |
-| ---------- | -------------------------------- | -------------------- |
-| `f[x]`     | Function application             |
-| `[x ∈ S    | -> expr]`                        | Function constructor |
-| `[S -> T]` | Set of all functions from S to T |
-| `DOMAIN f` | Domain of function f             |
+| Syntax              | Meaning                          |
+| ------------------- | -------------------------------- |
+| `f[x]`              | Function application             |
+| `[x ∈ S \|-> expr]` | Function constructor             |
+| `[S -> T]`          | Set of all functions from S to T |
+| `DOMAIN f`          | Domain of function f             |
 
 **Examples:**
 
@@ -650,11 +650,11 @@ d1 :> e1 @@ d2 :> e2  \* Equivalent to [d1 |-> e1, d2 |-> e2]
 
 ### Records
 
-| Syntax                           | Meaning         |
-| -------------------------------- | --------------- | --------- | ------------------ |
-| `r.field`                        | Field access    |
-| `[field1                         | -> val1, field2 | -> val2]` | Record constructor |
-| `[field1 : Set1, field2 : Set2]` | Set of records  |
+| Syntax                                 | Meaning            |
+| -------------------------------------- | ------------------ |
+| `r.field`                              | Field access       |
+| `[field1 \|-> val1, field2 \|-> val2]` | Record constructor |
+| `[field1 : Set1, field2 : Set2]`       | Set of records     |
 
 **Examples:**
 
